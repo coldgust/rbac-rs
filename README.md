@@ -343,7 +343,7 @@ cargo test
 | `RUST_LOG` | Log level filter | `info` |
 | `DATABASE_URL` | PostgreSQL connection string | - |
 | `APP_ADMIN_NAME` | Super admin username for initial migration | `admin` |
-| `APP_ADMIN_PASS` | Super admin password for initial migration | `admin` |
+| `APP_ADMIN_PASS` | Super admin password for initial migration | `superadmin` |
 
 ### Configuration Files
 

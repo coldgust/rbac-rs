@@ -343,7 +343,7 @@ cargo test
 | `RUST_LOG` | 日志级别过滤器 | `info` |
 | `DATABASE_URL` | PostgreSQL 连接字符串 | - |
 | `APP_ADMIN_NAME` | 初始迁移时超级管理员用户名 | `admin` |
-| `APP_ADMIN_PASS` | 初始迁移时超级管理员密码 | `admin` |
+| `APP_ADMIN_PASS` | 初始迁移时超级管理员密码 | `superadmin` |
 
 ### 配置文件
 
