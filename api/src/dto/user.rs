@@ -1,6 +1,7 @@
 use crate::dto::pagination::PaginationParams;
 use model::user::Model;
 use serde::{Deserialize, Serialize};
+use serde_with::{DisplayFromStr, serde_as};
 
 #[derive(Debug, Serialize)]
 pub struct RoleBrief {
@@ -15,10 +16,12 @@ pub struct UserRolesAndPermissions {
     pub permissions: Vec<String>, // "resource:action"
 }
 
-#[derive(Debug, Deserialize)]
+#[serde_as]
+#[derive(Debug, Deserialize, Clone)]
 pub struct UserFilters {
     pub username: Option<String>,
     pub email: Option<String>,
+    #[serde_as(as = "Option<DisplayFromStr>")]
     pub status: Option<i16>,
 }
 
@@ -36,6 +39,7 @@ pub struct UserBrief {
     pub username: String,
     pub email: String,
     pub display_name: Option<String>,
+    pub status: i16,
     pub last_login_at: Option<i64>,
     pub created_at: i64,
     pub updated_at: i64,
@@ -56,6 +60,7 @@ impl From<Model> for UserBrief {
             username: value.username,
             email: value.email,
             display_name: value.display_name,
+            status: value.status,
             last_login_at: value.last_login_at.map(|t| t.timestamp_millis()),
             created_at: value.created_at.timestamp_millis(),
             updated_at: value.updated_at.timestamp_millis(),

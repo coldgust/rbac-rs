@@ -6,7 +6,7 @@ use uuid::Uuid;
 #[derive(DeriveMigrationName)]
 pub struct Migration;
 
-const PERMISSIONS_DATA: [(&str, &str, &str); 12] = [
+const PERMISSIONS_DATA: [(&str, &str, &str); 14] = [
     ("user", "create", "Create User"),
     ("user", "read", "Read User"),
     ("user", "update", "Update User"),
@@ -19,6 +19,8 @@ const PERMISSIONS_DATA: [(&str, &str, &str); 12] = [
     ("role", "assign_perm", "Assign Permission"),
     ("perm", "create", "Create Permission"),
     ("perm", "read", "Read Permission"),
+    ("perm", "update", "Update Permission"),
+    ("perm", "delete", "Delete Permission"),
 ];
 
 const SUPER_ADMIN: &str = "super_admin";
