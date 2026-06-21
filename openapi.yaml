@@ -267,7 +267,7 @@ paths:
                   - properties:
                       data:
                         $ref: '#/components/schemas/UserRolesPermissionsResponse'
-  /me:
+  /users/me:
     get:
       summary: Get current user info
       tags:
