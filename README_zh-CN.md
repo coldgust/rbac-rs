@@ -179,7 +179,7 @@ DATABASE_URL=postgres://admin:admin@localhost/mydb?options=--search_path=rbac
 APP_PROFILE=dev
 RUST_LOG=info
 APP_ADMIN_NAME=admin
-APP_ADMIN_PASS=admin
+APP_ADMIN_PASS=superadmin
 ```
 
 3. **配置数据库设置**
