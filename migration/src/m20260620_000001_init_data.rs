@@ -57,8 +57,8 @@ impl MigrationTrait for Migration {
                     SUPER_ADMIN.into(),
                     "Super Administrator".into(),
                     true.into(),
-                    Expr::current_timestamp().into(),
-                    Expr::current_timestamp().into(),
+                    Expr::current_timestamp(),
+                    Expr::current_timestamp(),
                 ])
                 .to_owned();
             manager.execute(insert).await?;
@@ -97,8 +97,8 @@ impl MigrationTrait for Migration {
                         resource.into(),
                         action.into(),
                         name.into(),
-                        Expr::current_timestamp().into(),
-                        Expr::current_timestamp().into(),
+                        Expr::current_timestamp(),
+                        Expr::current_timestamp(),
                     ])
                     .to_owned();
                 manager.execute(insert).await?;
