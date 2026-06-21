@@ -1,0 +1,9 @@
+[package]
+name = "model"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+sea-orm = { workspace = true }
+uuid = { workspace = true }
+serde = { version = "1.0.228", features = ["derive"] }

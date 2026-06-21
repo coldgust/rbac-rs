@@ -1,0 +1,10 @@
+[server]
+port = 8080
+host = "0.0.0.0"
+
+[database]
+url = "postgres://admin:admin@localhost/mydb?options=--search_path=rbac"
+
+[jwt]
+secret = "test"
+expiration_secs = 300
