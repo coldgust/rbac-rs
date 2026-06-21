@@ -16,7 +16,7 @@ pub struct PermissionService;
 impl PermissionService {
     pub async fn get_permission(db: &DatabaseConnection, id: &str) -> AppResult<permission::Model> {
         Ok(permission::Entity::find_by_id(id)
-            .filter(role::Column::DeletedAt.is_null())
+            .filter(permission::Column::DeletedAt.is_null())
             .one(db)
             .await?
             .ok_or(AppError::NotFound)?)

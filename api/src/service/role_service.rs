@@ -7,12 +7,11 @@ use crate::error::{AppError, AppResult};
 use crate::middleware::current_user::CurrentUser;
 use crate::service::permission_service::PermissionService;
 use chrono::Utc;
-use model::{Permission, Role, permission, role, role_permission};
+use model::{role, role_permission, Permission, Role};
 use sea_orm::{
     ActiveModelTrait, ColumnTrait, DatabaseConnection, EntityTrait, ModelTrait, PaginatorTrait,
     QueryFilter, QueryOrder, QuerySelect, Set,
 };
-use tokio::task::id;
 use uuid::Uuid;
 
 pub struct RoleService;

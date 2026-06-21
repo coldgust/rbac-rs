@@ -44,6 +44,8 @@ tower-http = { version = "0.7.0", features = ["trace"] }
 
 async-trait = "0.1"
 time = { version = "0.3", features = ["formatting", "macros", "local-offset"] }
+
+serde_with = "3.21.0"
 [dependencies]
 api = { path = "api" }
 anyhow = { workspace = true }

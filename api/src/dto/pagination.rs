@@ -1,12 +1,16 @@
 use serde::{Deserialize, Serialize};
+use serde_with::{DisplayFromStr, serde_as};
 
+#[serde_as]
 #[derive(Debug, Deserialize, Clone)]
 pub struct PaginationParams {
     /// first page: 1
     #[serde(default = "default_page")]
+    #[serde_as(as = "DisplayFromStr")]
     pub page: u64,
 
     #[serde(default = "default_page_size")]
+    #[serde_as(as = "DisplayFromStr")]
     pub page_size: u64,
 
     #[serde(default)]
