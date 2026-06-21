@@ -178,6 +178,8 @@ Create a `.env` file in the project root:
 DATABASE_URL=postgres://admin:admin@localhost/mydb?options=--search_path=rbac
 APP_PROFILE=dev
 RUST_LOG=info
+APP_ADMIN_NAME=admin
+APP_ADMIN_PASS=admin
 ```
 
 3. **Configure database settings**
@@ -340,6 +342,8 @@ cargo test
 | `APP_PROFILE` | Application profile (dev/prod) | `dev` |
 | `RUST_LOG` | Log level filter | `info` |
 | `DATABASE_URL` | PostgreSQL connection string | - |
+| `APP_ADMIN_NAME` | Super admin username for initial migration | `admin` |
+| `APP_ADMIN_PASS` | Super admin password for initial migration | `admin` |
 
 ### Configuration Files
 
@@ -379,6 +383,8 @@ expiration_secs = 300
 cd migration
 cargo run -- up
 ```
+
+> **Note**: The migration will automatically create a super admin user using the `APP_ADMIN_NAME` and `APP_ADMIN_PASS` environment variables from your `.env` file. Make sure to set these before running migrations, and change the default credentials for production deployments.
 
 ### Rollback Migrations
 

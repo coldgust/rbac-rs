@@ -178,6 +178,8 @@ cd RBAC-RUST
 DATABASE_URL=postgres://admin:admin@localhost/mydb?options=--search_path=rbac
 APP_PROFILE=dev
 RUST_LOG=info
+APP_ADMIN_NAME=admin
+APP_ADMIN_PASS=admin
 ```
 
 3. **配置数据库设置**
@@ -340,6 +342,8 @@ cargo test
 | `APP_PROFILE` | 应用配置文件（dev/prod） | `dev` |
 | `RUST_LOG` | 日志级别过滤器 | `info` |
 | `DATABASE_URL` | PostgreSQL 连接字符串 | - |
+| `APP_ADMIN_NAME` | 初始迁移时超级管理员用户名 | `admin` |
+| `APP_ADMIN_PASS` | 初始迁移时超级管理员密码 | `admin` |
 
 ### 配置文件
 
@@ -379,6 +383,8 @@ expiration_secs = 300
 cd migration
 cargo run -- up
 ```
+
+> **注意**：迁移会自动使用 `.env` 文件中的 `APP_ADMIN_NAME` 和 `APP_ADMIN_PASS` 环境变量创建超级管理员用户。请确保在运行迁移前设置这些变量，并在生产环境中修改默认凭据。
 
 ### 回滚迁移
 
