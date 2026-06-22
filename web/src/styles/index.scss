@@ -1,0 +1,524 @@
+// ============================================================
+// 现代化全局样式 - Modern Global Styles
+// ============================================================
+
+// ---- CSS 变量：现代配色系统 ----
+:root {
+  // 主色调（紫蓝渐变系）
+  --rbac-primary: #6366f1;
+  --rbac-primary-light: #818cf8;
+  --rbac-primary-dark: #4f46e5;
+  --rbac-secondary: #ec4899;
+  --rbac-accent: #06b6d4;
+
+  // 渐变
+  --rbac-gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --rbac-gradient-cool: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #ec4899 100%);
+  --rbac-gradient-sidebar: linear-gradient(180deg, #0f172a 0%, #1e1b4b 100%);
+  --rbac-gradient-card: linear-gradient(135deg, rgba(99, 102, 241, 0.08) 0%, rgba(236, 72, 153, 0.06) 100%);
+
+  // 文字
+  --rbac-text-primary: #1e293b;
+  --rbac-text-regular: #475569;
+  --rbac-text-secondary: #94a3b8;
+
+  // 背景
+  --rbac-bg-page: #f8fafc;
+  --rbac-bg-card: #ffffff;
+  --rbac-bg-glass: rgba(255, 255, 255, 0.7);
+
+  // 阴影
+  --rbac-shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.04);
+  --rbac-shadow-md: 0 4px 16px rgba(15, 23, 42, 0.06);
+  --rbac-shadow-lg: 0 12px 40px rgba(15, 23, 42, 0.08);
+  --rbac-shadow-glow: 0 8px 32px rgba(99, 102, 241, 0.18);
+
+  // 圆角
+  --rbac-radius-sm: 8px;
+  --rbac-radius-md: 12px;
+  --rbac-radius-lg: 16px;
+  --rbac-radius-xl: 24px;
+}
+
+// ---- NProgress 定制 ----
+#nprogress .bar {
+  background: linear-gradient(90deg, #6366f1, #ec4899) !important;
+  height: 3px !important;
+  box-shadow: 0 0 10px rgba(99, 102, 241, 0.6), 0 0 6px rgba(236, 72, 153, 0.4) !important;
+}
+
+#nprogress .peg {
+  box-shadow: 0 0 12px rgba(99, 102, 241, 0.8), 0 0 8px rgba(236, 72, 153, 0.6) !important;
+}
+
+// ---- 自定义滚动条 ----
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #6366f1, #8b5cf6);
+  border-radius: 4px;
+  &:hover {
+    background: linear-gradient(180deg, #4f46e5, #7c3aed);
+  }
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #6366f1 transparent;
+}
+
+// ---- 全局基础 ----
+body {
+  margin: 0;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC',
+    'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: var(--rbac-bg-page);
+  color: var(--rbac-text-primary);
+}
+
+// ============================================================
+// 布局样式
+// ============================================================
+.layout-container {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+  background: var(--rbac-bg-page);
+}
+
+.sidebar-container {
+  width: 240px;
+  background: var(--rbac-gradient-sidebar);
+  background-image: var(--rbac-gradient-sidebar),
+    radial-gradient(circle at 20% 20%, rgba(99, 102, 241, 0.15) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(236, 72, 153, 0.1) 0%, transparent 50%);
+  box-shadow: 4px 0 24px rgba(15, 23, 42, 0.12);
+  transition: width 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+  position: relative;
+  z-index: 10;
+
+  &.collapsed {
+    width: 72px;
+  }
+
+  // 侧边栏菜单定制
+  :deep(.el-menu) {
+    border-right: none !important;
+    padding: 8px 12px;
+  }
+
+  :deep(.el-menu-item) {
+    margin: 4px 0;
+    border-radius: 10px;
+    height: 48px;
+    line-height: 48px;
+    color: rgba(255, 255, 255, 0.65) !important;
+    transition: all 0.25s ease;
+    position: relative;
+    overflow: hidden;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.08) !important;
+      color: #fff !important;
+      transform: translateX(2px);
+    }
+
+    &.is-active {
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.9), rgba(139, 92, 246, 0.85)) !important;
+      color: #fff !important;
+      box-shadow: 0 4px 14px rgba(99, 102, 241, 0.4);
+
+      &::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 3px;
+        height: 60%;
+        background: #fff;
+        border-radius: 0 3px 3px 0;
+      }
+    }
+  }
+}
+
+.sidebar-logo {
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 19px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  white-space: nowrap;
+  position: relative;
+
+  span {
+    background: linear-gradient(135deg, #818cf8 0%, #f472b6 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  &.collapsed {
+    font-size: 18px;
+    span {
+      background: linear-gradient(135deg, #818cf8 0%, #f472b6 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+  }
+}
+
+.main-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: var(--rbac-bg-page);
+  background-image: radial-gradient(circle at 0% 0%, rgba(99, 102, 241, 0.04) 0%, transparent 40%),
+    radial-gradient(circle at 100% 100%, rgba(236, 72, 153, 0.03) 0%, transparent 40%);
+}
+
+.header-container {
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-bottom: 1px solid rgba(226, 232, 240, 0.6);
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);
+  z-index: 9;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.content-container {
+  flex: 1;
+  padding: 24px;
+  overflow-y: auto;
+}
+
+// ============================================================
+// 认证页（登录/注册）
+// ============================================================
+.auth-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #312e81 100%);
+
+  // 动态光斑背景
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.5;
+    z-index: 0;
+  }
+
+  &::before {
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, #6366f1 0%, transparent 70%);
+    top: -100px;
+    left: -100px;
+    animation: floatBlob 12s ease-in-out infinite;
+  }
+
+  &::after {
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, #ec4899 0%, transparent 70%);
+    bottom: -150px;
+    right: -150px;
+    animation: floatBlob 15s ease-in-out infinite reverse;
+  }
+}
+
+@keyframes floatBlob {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(60px, -40px) scale(1.1); }
+  66% { transform: translate(-40px, 60px) scale(0.95); }
+}
+
+.auth-card {
+  width: 440px;
+  padding: 48px 40px;
+  border-radius: var(--rbac-radius-xl);
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+  position: relative;
+  z-index: 1;
+  animation: cardFadeIn 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: var(--rbac-radius-xl);
+    padding: 1px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.4), transparent 50%);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+}
+
+@keyframes cardFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.auth-title {
+  text-align: center;
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  background: var(--rbac-gradient-cool);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: -0.5px;
+}
+
+.auth-subtitle {
+  text-align: center;
+  font-size: 14px;
+  color: var(--rbac-text-secondary);
+  margin-bottom: 32px;
+  font-weight: 500;
+}
+
+.auth-footer {
+  text-align: center;
+  margin-top: 24px;
+  font-size: 14px;
+  color: var(--rbac-text-secondary);
+
+  a {
+    color: var(--rbac-primary);
+    text-decoration: none;
+    margin-left: 4px;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    &:hover {
+      color: var(--rbac-secondary);
+    }
+  }
+}
+
+// ============================================================
+// 页面卡片
+// ============================================================
+.page-card {
+  background: var(--rbac-bg-card);
+  border-radius: var(--rbac-radius-lg);
+  padding: 28px;
+  box-shadow: var(--rbac-shadow-md);
+  border: 1px solid rgba(226, 232, 240, 0.6);
+  transition: box-shadow 0.3s ease;
+
+  &:hover {
+    box-shadow: var(--rbac-shadow-lg);
+  }
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+
+  h2 {
+    margin: 0;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--rbac-text-primary);
+    letter-spacing: -0.3px;
+    position: relative;
+    padding-left: 14px;
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 4px;
+      height: 22px;
+      background: var(--rbac-gradient-cool);
+      border-radius: 2px;
+    }
+  }
+}
+
+.search-form {
+  margin-bottom: 20px;
+  padding: 20px;
+  background: rgba(248, 250, 252, 0.6);
+  border-radius: var(--rbac-radius-md);
+  border: 1px solid rgba(226, 232, 240, 0.5);
+}
+
+.pagination-wrapper {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+
+// ============================================================
+// Element Plus 组件微调
+// ============================================================
+
+// 按钮
+.el-button--primary {
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%) !important;
+  border: none !important;
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3) !important;
+  transition: all 0.25s ease !important;
+
+  &:hover {
+    background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%) !important;
+    box-shadow: 0 6px 18px rgba(99, 102, 241, 0.4) !important;
+    transform: translateY(-1px);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+// 输入框聚焦
+.el-input__wrapper {
+  transition: box-shadow 0.2s ease !important;
+  &.is-focus {
+    box-shadow: 0 0 0 1px var(--rbac-primary) inset, 0 0 0 4px rgba(99, 102, 241, 0.12) !important;
+  }
+}
+
+// 表格
+.el-table {
+  border-radius: var(--rbac-radius-md) !important;
+  overflow: hidden;
+  border: 1px solid rgba(226, 232, 240, 0.6) !important;
+
+  th.el-table__cell {
+    background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%) !important;
+    font-weight: 600 !important;
+    color: var(--rbac-text-primary) !important;
+  }
+
+  .el-table__row:hover > td {
+    background: rgba(99, 102, 241, 0.04) !important;
+  }
+}
+
+// 卡片
+.el-card {
+  border-radius: var(--rbac-radius-md) !important;
+  border: 1px solid rgba(226, 232, 240, 0.6) !important;
+  box-shadow: var(--rbac-shadow-sm) !important;
+}
+
+// 对话框
+.el-dialog {
+  border-radius: var(--rbac-radius-lg) !important;
+  overflow: hidden;
+  box-shadow: 0 24px 64px rgba(15, 23, 42, 0.2) !important;
+}
+
+.el-dialog__header {
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.06), rgba(236, 72, 153, 0.04)) !important;
+  margin-right: 0 !important;
+  padding: 20px 24px !important;
+  border-bottom: 1px solid rgba(226, 232, 240, 0.6);
+}
+
+.el-dialog__title {
+  font-weight: 600 !important;
+}
+
+// 标签
+.el-tag {
+  border-radius: 6px !important;
+  font-weight: 500 !important;
+}
+
+// 统计卡片
+.el-statistic {
+  padding: 8px 0;
+}
+
+// 下拉菜单
+.el-dropdown-menu {
+  border-radius: var(--rbac-radius-md) !important;
+  box-shadow: 0 12px 32px rgba(15, 23, 42, 0.12) !important;
+  border: 1px solid rgba(226, 232, 240, 0.6) !important;
+  padding: 6px !important;
+
+  .el-dropdown-menu__item {
+    border-radius: 8px !important;
+    margin: 2px 0 !important;
+    transition: all 0.2s ease !important;
+    &:hover {
+      background: rgba(99, 102, 241, 0.08) !important;
+      color: var(--rbac-primary) !important;
+    }
+  }
+}
+
+// 路由切换过渡
+.router-fade-enter-active,
+.router-fade-leave-active {
+  transition: all 0.3s ease;
+}
+.router-fade-enter-from {
+  opacity: 0;
+  transform: translateY(8px);
+}
+.router-fade-leave-to {
+  opacity: 0;
+  transform: translateY(-8px);
+}
