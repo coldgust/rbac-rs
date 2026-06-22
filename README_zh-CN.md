@@ -2,7 +2,7 @@
 
 [English](README.md) | [中文](README_zh-CN.md)
 
-一个基于 Rust 构建的现代化、高性能基于角色的访问控制（RBAC）系统，提供全面的用户管理、角色管理和权限控制能力。
+一个基于 Rust 构建的现代化、高性能基于角色的访问控制（RBAC）系统，提供全面的用户管理、角色管理和权限控制能力。内置 Vue 3 管理后台前端，开箱即用。
 
 ## 🚀 功能特性
 
@@ -21,6 +21,7 @@
 - **系统角色保护**: 内置关键系统角色保护机制
 - **数据库迁移**: 使用 SeaORM 迁移自动化模式管理
 - **OpenAPI 文档**: 完整的 API 文档（openapi.yaml）
+- **管理后台前端**: Vue 3 + Element Plus 管理后台，支持国际化（中/英）
 
 ### API 端点
 
@@ -407,7 +408,7 @@ API 遵循 RESTful 约定并返回一致的 JSON 响应：
 ```json
 {
   "code": 0,
-  "message": "success",
+  "message": "",
   "data": { ... }
 }
 ```
@@ -453,13 +454,14 @@ API 遵循 RESTful 约定并返回一致的 JSON 响应：
 
 ## 📄 许可证
 
-本项目是开源的，采用 MIT 许可证。
+本项目是开源的，采用 MIT 许可证。详见 [LICENSE](LICENSE)。
 
 ## 🙏 致谢
 
 - [Axum](https://github.com/tokio-rs/axum) - 优秀的 Web 框架
 - [SeaORM](https://www.sea-ql.org/SeaORM/) - 强大的异步 ORM
 - [Tokio](https://tokio.rs/) - 可靠的异步运行时
+- [Vue 3](https://vuejs.org/) & [Element Plus](https://element-plus.org/) - 前端技术栈
 
 ## 📞 支持
 

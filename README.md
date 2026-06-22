@@ -2,7 +2,7 @@
 
 [English](README.md) | [中文](README_zh-CN.md)
 
-A modern, high-performance Role-Based Access Control (RBAC) system built with Rust, providing comprehensive user management, role management, and permission control capabilities.
+A modern, high-performance Role-Based Access Control (RBAC) system built with Rust, providing comprehensive user management, role management, and permission control capabilities. It includes a Vue 3 admin frontend for out-of-the-box management.
 
 ## 🚀 Features
 
@@ -21,6 +21,7 @@ A modern, high-performance Role-Based Access Control (RBAC) system built with Ru
 - **System Roles Protection**: Built-in protection for critical system roles
 - **Database Migrations**: Automated schema management with SeaORM migrations
 - **OpenAPI Documentation**: Comprehensive API documentation (openapi.yaml)
+- **Admin Frontend**: Vue 3 + Element Plus admin dashboard with i18n support
 
 ### API Endpoints
 
@@ -407,7 +408,7 @@ The API follows RESTful conventions and returns consistent JSON responses:
 ```json
 {
   "code": 0,
-  "message": "success",
+  "message": "",
   "data": { ... }
 }
 ```
@@ -453,13 +454,14 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## 📄 License
 
-This project is open source and available under the MIT License.
+This project is open source and available under the MIT License. See [LICENSE](LICENSE).
 
 ## 🙏 Acknowledgments
 
 - [Axum](https://github.com/tokio-rs/axum) - Excellent web framework
 - [SeaORM](https://www.sea-ql.org/SeaORM/) - Powerful async ORM
 - [Tokio](https://tokio.rs/) - Reliable async runtime
+- [Vue 3](https://vuejs.org/) & [Element Plus](https://element-plus.org/) - Frontend stack
 
 ## 📞 Support
 
