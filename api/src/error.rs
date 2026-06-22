@@ -24,6 +24,8 @@ pub enum AppError {
     UsernameExists,
     #[error("Email already registered")]
     EmailExists,
+    #[error("Redis pool create error: {0}")]
+    RedisPoolCreatError(#[from] deadpool_redis::CreatePoolError),
 }
 
 impl AppError {
@@ -39,6 +41,7 @@ impl AppError {
             Self::InvalidCredentials => (10001, "Invalid username or password".to_string()),
             Self::UsernameExists => (20001, "Username already exists".to_string()),
             Self::EmailExists => (20002, "Email already registered".to_string()),
+            Self::RedisPoolCreatError(_) => (50001, "Redis pool create error".to_string()),
         }
     }
 }

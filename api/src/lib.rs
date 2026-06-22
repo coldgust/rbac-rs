@@ -4,6 +4,7 @@ mod dto;
 mod error;
 mod handler;
 mod middleware;
+mod redis;
 pub mod router;
 mod service;
 
@@ -48,8 +49,11 @@ pub async fn start() -> anyhow::Result<()> {
     let conn = db::init_database(&config.database).await?;
     info!("db init success {:?}", config.database);
 
+    let redis_pool = redis::init_redis_pool(&config.redis).await?;
+    info!("redis init success {:?}", config.redis);
+
     let addr = format!("{}:{}", config.server.host, config.server.port);
-    let app = create_router(conn, config).layer(TraceLayer::new_for_http());
+    let app = create_router(conn, redis_pool, config).layer(TraceLayer::new_for_http());
     let listener = tokio::net::TcpListener::bind(&addr).await?;
     info!("listen on {}", addr);
     axum::serve(listener, app).await?;

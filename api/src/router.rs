@@ -7,10 +7,12 @@ use axum::Router;
 use axum::routing::{delete, get, post, put};
 use sea_orm::DatabaseConnection;
 use std::sync::Arc;
+use crate::redis::RedisPool;
 
-pub fn create_router(db: DatabaseConnection, config: Config) -> Router {
+pub fn create_router(db: DatabaseConnection, redis: RedisPool,  config: Config) -> Router {
     let state = Arc::new(AppState {
         db: Arc::new(db),
+        redis: Arc::new(redis),
         config: Arc::new(config),
     });
 
