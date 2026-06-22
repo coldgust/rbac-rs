@@ -1,4 +1,5 @@
 use crate::db::DbConfig;
+use crate::redis::{RedisConfig, RedisPool};
 use sea_orm::DatabaseConnection;
 use serde::Deserialize;
 use std::sync::Arc;
@@ -20,10 +21,12 @@ pub struct Config {
     pub server: Server,
     pub database: DbConfig,
     pub jwt: Jwt,
+    pub redis: RedisConfig,
 }
 
 #[derive(Debug)]
 pub struct AppState {
     pub db: Arc<DatabaseConnection>,
+    pub redis: Arc<RedisPool>,
     pub config: Arc<Config>,
 }

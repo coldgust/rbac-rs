@@ -46,6 +46,9 @@ async-trait = "0.1"
 time = { version = "0.3", features = ["formatting", "macros", "local-offset"] }
 
 serde_with = "3.21.0"
+
+redis = { version = "1.2.4", features = ["tokio-comp", "connection-manager", "ahash", "cluster", "script"] }
+deadpool-redis = { version = "0.23.0", features = ["serde"] }
 [dependencies]
 api = { path = "api" }
 anyhow = { workspace = true }
