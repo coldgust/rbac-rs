@@ -1,4 +1,3 @@
-use crate::dto::auth::Claims;
 use crate::dto::pagination::{OrderDir, PaginatedResponse, PaginationParams};
 use crate::dto::user::{
     AssignRolesRequest, ChangePasswordRequest, RoleBrief, UpdateUserRequest, UserDetail,

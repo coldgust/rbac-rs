@@ -44,13 +44,18 @@ pub async fn start() -> anyhow::Result<()> {
         .build()?
         .try_deserialize()?;
 
-    info!("{:?}", config);
+    config.validate()?;
+
+    info!(
+        "server={}:{}, profile={}",
+        config.server.host, config.server.port, profile
+    );
 
     let conn = db::init_database(&config.database).await?;
-    info!("db init success {:?}", config.database);
+    info!("db init success");
 
     let redis_pool = redis::init_redis_pool(&config.redis).await?;
-    info!("redis init success {:?}", config.redis);
+    info!("redis init success");
 
     let addr = format!("{}:{}", config.server.host, config.server.port);
     let app = create_router(conn, redis_pool, config).layer(TraceLayer::new_for_http());
