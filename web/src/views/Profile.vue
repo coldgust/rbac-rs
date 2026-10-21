@@ -125,6 +125,8 @@ async function handleChangePassword() {
     })
     ElMessage.success(t('profile.passwordChanged'))
     pwdFormRef.value?.resetFields()
+    // Password change revokes every refresh session server-side.
+    authStore.logout()
   } catch {} finally {
     pwdLoading.value = false
   }

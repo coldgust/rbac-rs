@@ -28,6 +28,8 @@
 #### 认证
 - `POST /api/v1/auth/register` - 注册新用户
 - `POST /api/v1/auth/login` - 登录并获取 JWT 令牌
+- `POST /api/v1/auth/refresh` - 刷新 Access Token（轮换 Refresh Token）
+- `POST /api/v1/auth/logout` - 登出并撤销当前 Refresh Token 会话
 
 #### 用户管理
 - `GET /api/v1/users/` - 列出所有用户（支持分页和过滤）

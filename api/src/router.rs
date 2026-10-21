@@ -3,13 +3,13 @@ use crate::config::Config;
 use crate::handler::{auth_handler, permission_handler, role_handler, user_handler};
 use crate::middleware::auth::auth_middleware;
 use crate::middleware::rbac::require_permission;
+use crate::redis::RedisPool;
 use axum::Router;
 use axum::routing::{delete, get, post, put};
 use sea_orm::DatabaseConnection;
 use std::sync::Arc;
-use crate::redis::RedisPool;
 
-pub fn create_router(db: DatabaseConnection, redis: RedisPool,  config: Config) -> Router {
+pub fn create_router(db: DatabaseConnection, redis: RedisPool, config: Config) -> Router {
     let state = Arc::new(AppState {
         db: Arc::new(db),
         redis: Arc::new(redis),
@@ -18,7 +18,9 @@ pub fn create_router(db: DatabaseConnection, redis: RedisPool,  config: Config) 
 
     let auth_routers = Router::new()
         .route("/register", post(auth_handler::register))
-        .route("/login", post(auth_handler::login));
+        .route("/login", post(auth_handler::login))
+        .route("/refresh", post(auth_handler::refresh))
+        .route("/logout", post(auth_handler::logout));
 
     let user_routers = Router::new()
         .route(

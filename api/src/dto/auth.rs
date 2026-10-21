@@ -1,6 +1,5 @@
 use serde::{Deserialize, Serialize};
 use validator::Validate;
-use chrono::Utc;
 
 #[derive(Debug, Deserialize, Validate)]
 pub struct RegisterRequest {
@@ -31,7 +30,10 @@ pub struct TokenResponse {
     pub access_token: String,
     pub refresh_token: String,
     pub token_type: String,
+    /// Access Token 剩余秒数。
     pub expires_in: i64,
+    /// Refresh Token 剩余秒数。
+    pub refresh_expires_in: i64,
 }
 
 #[derive(Debug, Deserialize)]
@@ -39,24 +41,23 @@ pub struct RefreshRequest {
     pub refresh_token: String,
 }
 
-#[derive(Debug, Serialize, Deserialize, Clone)]
-pub struct Claims {
-    pub sub: String,        // user id
-    pub roles: Vec<String>, // role names
-    pub perms: Vec<String>, // permissions
-    pub exp: i64,
-    pub iat: i64,
+#[derive(Debug, Deserialize)]
+pub struct LogoutRequest {
+    pub refresh_token: String,
 }
 
-impl Claims {
-    pub fn new(user_id: &str, roles: Vec<String>, perms: Vec<String>, exp: i64) -> Self {
-        let now = Utc::now().timestamp();
-        Self {
-            sub: user_id.to_owned(),
-            roles,
-            perms,
-            exp,
-            iat: now,
-        }
-    }
+#[derive(Debug, Serialize, Deserialize, Clone)]
+pub struct Claims {
+    pub sub: String,
+    pub roles: Vec<String>,
+    pub perms: Vec<String>,
+    /// 固定为 "access"，用于阻止 Refresh/旧令牌被当作 Access Token 使用。
+    pub token_use: String,
+    pub jti: String,
+    pub iss: String,
+    pub aud: String,
+    /// 秒级时间戳。
+    pub iat: i64,
+    /// 秒级时间戳。
+    pub exp: i64,
 }
