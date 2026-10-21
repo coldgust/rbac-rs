@@ -15,9 +15,25 @@ export const useAuthStore = defineStore('auth', () => {
 
   function setTokens(tokens: TokenResponse) {
     accessToken.value = tokens.access_token
-    refreshToken.value = tokens.refresh_token
     localStorage.setItem('access_token', tokens.access_token)
-    localStorage.setItem('refresh_token', tokens.refresh_token)
+
+    // A refresh response always rotates the refresh token. Keep the old one if
+    // a backend ever omits it, instead of silently clearing the session.
+    if (tokens.refresh_token) {
+      refreshToken.value = tokens.refresh_token
+      localStorage.setItem('refresh_token', tokens.refresh_token)
+    }
+  }
+
+  function syncFromStorage(): boolean {
+    const storedAccess = localStorage.getItem('access_token') || ''
+    const storedRefresh = localStorage.getItem('refresh_token') || ''
+    if (!storedAccess || !storedRefresh) {
+      return false
+    }
+    accessToken.value = storedAccess
+    refreshToken.value = storedRefresh
+    return true
   }
 
   function hasPermission(perm: string): boolean {
@@ -54,6 +70,7 @@ export const useAuthStore = defineStore('auth', () => {
     permissions,
     isLoggedIn,
     setTokens,
+    syncFromStorage,
     hasPermission,
     fetchCurrentUser,
     logout,

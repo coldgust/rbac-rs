@@ -14,5 +14,5 @@ export function refreshToken(data: RefreshRequest) {
 }
 
 export function logout(refreshToken: string) {
-  return request.post<ApiResponse<null>>('/auth/logout', { refresh_token: refreshToken })
+  return request.post<void>('/auth/logout', { refresh_token: refreshToken })
 }

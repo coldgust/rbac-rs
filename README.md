@@ -28,6 +28,8 @@ A modern, high-performance Role-Based Access Control (RBAC) system built with Ru
 #### Authentication
 - `POST /api/v1/auth/register` - Register new user
 - `POST /api/v1/auth/login` - Login and receive JWT tokens
+- `POST /api/v1/auth/refresh` - Refresh the access token (rotates the refresh token)
+- `POST /api/v1/auth/logout` - Logout and revoke the current refresh-token session
 
 #### User Management
 - `GET /api/v1/users/` - List all users (with pagination and filters)

@@ -23,7 +23,7 @@ pub async fn auth_middleware(
     }
 
     let token = &auth_header[7..];
-    let claims = AuthService::verify_token(token, &state.config.jwt.secret)?;
+    let claims = AuthService::verify_access_token(token, &state.config.jwt)?;
     req.extensions_mut().insert(claims);
 
     Ok(next.run(req).await)

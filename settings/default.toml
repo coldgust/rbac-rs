@@ -6,8 +6,19 @@ host = "0.0.0.0"
 url = "postgres://admin:admin@localhost/mydb?options=--search_path=rbac"
 
 [jwt]
-secret = "test"
-expiration_secs = 300
+# 生产环境请通过 APP_JWT.SECRET 注入，不要提交真实密钥
+secret = "dev-only-change-me-0123456789abcdef"
+access_expiration_secs = 900
+refresh_expiration_secs = 604800
+refresh_absolute_secs = 2592000
+issuer = "rbac-rs"
+audience = "rbac-rs-web"
+leeway_secs = 30
+
+[auth]
+refresh_reuse_grace_secs = 30
+max_sessions_per_user = 10
+refresh_cookie_enabled = false
 
 [redis]
-url= "redis://localhost:6379"
+url = "redis://localhost:6379"

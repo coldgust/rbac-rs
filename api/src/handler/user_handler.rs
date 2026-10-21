@@ -7,9 +7,11 @@ use crate::dto::user::{
 };
 use crate::error::{AppError, AppResult};
 use crate::middleware::current_user::CurrentUser;
+use crate::service::token_service::TokenService;
 use crate::service::user_service::UserService;
 use axum::Json;
 use axum::extract::{Path, Query, State};
+use model::user::UserStatus;
 use std::sync::Arc;
 
 pub async fn list_users(
@@ -33,7 +35,14 @@ pub async fn update_user(
     Path(id): Path<String>,
     Json(req): Json<UpdateUserRequest>,
 ) -> AppResult<ApiResponse<UserBrief>> {
+    let revoke_sessions = matches!(
+        req.status,
+        Some(status) if status != UserStatus::Active as i16
+    );
     let res = UserService::update(&state.db, &id, req).await?;
+    if revoke_sessions {
+        TokenService::revoke_all(&state.redis, &id).await?;
+    }
     Ok(ApiResponse::success(res))
 }
 
@@ -42,6 +51,7 @@ pub async fn delete_user(
     Path(id): Path<String>,
 ) -> AppResult<ApiResponse<()>> {
     UserService::delete(&state.db, &id).await?;
+    TokenService::revoke_all(&state.redis, &id).await?;
     Ok(ApiResponse::success(()))
 }
 
@@ -77,7 +87,8 @@ pub async fn change_password(
     State(state): State<Arc<AppState>>,
     Json(req): Json<ChangePasswordRequest>,
 ) -> AppResult<ApiResponse<()>> {
-    Ok(ApiResponse::success(
-        UserService::change_password(&state.db, req, &current_user.0.sub).await?,
-    ))
+    let user_id = current_user.0.sub.clone();
+    UserService::change_password(&state.db, req, &user_id).await?;
+    TokenService::revoke_all(&state.redis, &user_id).await?;
+    Ok(ApiResponse::success(()))
 }
